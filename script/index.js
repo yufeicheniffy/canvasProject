@@ -23,7 +23,7 @@ if (canvasContext) {
                 onActivation = true;
                 break;
             case "eraser":
-                clearZone(inf.clientX-radius, inf.clientY-radius, radius*2);
+                clearZone(inf.clientX, inf.clientY, radius*2);
                 onActivation = true;
                 break;
         }
@@ -39,7 +39,7 @@ if (canvasContext) {
                     startPoint = endPoint;
                     break;
                 case "eraser":
-                    clearZone(inf.clientX-radius, inf.clientY-radius, radius*2);
+                    clearZone(inf.clientX, inf.clientY, radius*2);
                     break;
             }
         }
@@ -103,5 +103,5 @@ para: x/y: position
 width: 区域长宽
  */
 function clearZone(x, y, width) {
-    canvasContext.clearRect(x, y, width, width);
+    canvasContext.clearRect(x+width, y+width, width, width);
 }

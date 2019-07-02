@@ -13,7 +13,6 @@ ul {
 }
 
 #mainCanvas {
-    border: 1px solid red;
     cursor: crosshair;
 }
 
