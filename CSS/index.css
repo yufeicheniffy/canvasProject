@@ -1,0 +1,26 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+.toolBar {
+    position: fixed;
+}
+
+#mainCanvas {
+    border: 1px solid red;
+    cursor: crosshair;
+}
+
+#eraserButton.style {
+    display: block;
+}
+
+#paintButton {
+    display: none;
+}

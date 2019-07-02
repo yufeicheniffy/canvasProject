@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas</title>
-    <script src="script/index.js"></script>
-    <style>
-        body{
-            margin:0;
-            padding:0;
-        }
-    </style>
+    <title>Drawn Something</title>
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
 <main>
-    <div id="mainCanvas"></div>
+    <div class="toolBar">
+        <ul>
+            <li><button id="clearButton">清空</button></li>
+            <li>
+                <button id="eraserButton">橡皮</button>
+            </li>
+            <li>
+                <button id="paintButton">绘画</button>
+            </li>
+        </ul>
+    </div>
+    <canvas id="mainCanvas"></canvas>
 </main>
 <script src="script/index.js"></script>
 </body>
