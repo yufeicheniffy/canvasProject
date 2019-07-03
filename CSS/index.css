@@ -4,22 +4,101 @@ html, body {
     overflow: hidden;
 }
 
-ul {
+ul ,ol {
     list-style: none;
+    padding: 5px;
 }
-
+button{
+    outline:none;
+}
+.toolBar{
+    background-color: rgba(8,8,8,0.2);
+    margin: 10px;
+    border-radius: 5em;
+}
+.visibleClass{
+    visibility: inherit;
+}
+.unVisibleClass{
+    visibility: hidden;
+}
 .toolBar {
     position: fixed;
 }
 
 #mainCanvas {
     cursor: crosshair;
+    touch-action:none;
 }
-
-#eraserButton.style {
+.icon{
+    height: 2em;
+    width: 2em;
+    border: 1px solid transparent;
+    padding: 0.3em;
+    border-radius: 30%;
+    transition: all 0.3s;
+}
+.icon:hover{
+    border: 1px solid black;
+    transform: scale(1.1);
+}
+.colorSelectionTool:after{
+    content: '';
+    clear: both;
     display: block;
+    visibility: hidden;
 }
-
-#paintButton {
-    display: none;
+.colorSelectionTool>div{
+    float: left;
+}
+.colorSelectionTool>ul{
+    float: left;
+    line-height: 2em;
+}
+.iconActive{
+    background-color: grey;
+    transform: scale(1.1);
+}
+#colorBar{
+    position: absolute;
+    left:70px;
+}
+#blackButton{
+    background-color: black;
+}
+ #greenButton{
+    background-color: green;
+}
+ #blueButton{
+    background-color: blue;
+}
+ #redButton{
+    background-color: red;
+}
+ #orangeButton{
+    background-color: orange;
+}
+ #purpleButton{
+    background-color: purple;
+}
+.colorButtonActivation>span:after{
+    position: relative;
+    top: -6px;
+    content: "\2713";
+    font-size: 1.5em;
+    color: white;
+    transition: all 0.3s;
+}
+.colorButton>span:after{
+     position: relative;
+     top: 10px;
+     content: "\2713";
+     font-size: 1.5em;
+     color: white;
+     transition: all 0.3s;
+     visibility: hidden;
+ }
+.colorButton:hover>span:after {
+    top:-6px;
+    visibility: inherit;
 }

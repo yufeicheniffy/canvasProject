@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drawn Something</title>
     <link rel="stylesheet" href="CSS/index.css">
 </head>
@@ -9,13 +10,43 @@
 <main>
     <div class="toolBar">
         <ul>
-            <li><button id="clearButton">清空</button></li>
             <li>
-                <button id="eraserButton">橡皮</button>
+                <img class="icon" src="img/garbage.svg" id="clearButton" alt="清空">
             </li>
             <li>
-                <button id="paintButton">绘画</button>
+                <img class="icon" src="img/eraser.svg" id="eraserButton" alt="橡皮">
             </li>
+            <li>
+                <img class="icon iconActive" src="img/edit.svg" id="paintButton" alt="画笔">
+            </li>
+            <li class="colorSelectionTool">
+                <div>
+                    <img class="icon" src="img/colorSelection.svg" id="colorButton" alt="颜色">
+                </div>
+                <ul id="colorBar" class="unVisibleClass">
+                    <li>
+                        <button id="blackButton" class="icon colorButtonActivation"><span></span></button>
+                    </li>
+                    <li>
+                        <button id="greenButton" class="colorButton icon"><span></span></button>
+                    </li>
+                    <li>
+                        <button id="blueButton" class="colorButton icon"><span></span></button>
+                    </li>
+                    <li>
+                        <button id="redButton" class="colorButton icon"><span></span></button>
+                    </li>
+                    <li>
+                        <button id="orangeButton" class="colorButton icon"><span></span></button>
+                    </li>
+                    <li>
+                        <button id="purpleButton" class="colorButton icon"><span></span></button>
+                    </li>
+                </ul>
+            </li>
+            </li>
+            <a download="myFile" href="url" id="downloadLink"><img class="icon" src="img/download.svg" id="downloadButton" alt="下载"></a>
+            <li>
         </ul>
     </div>
     <canvas id="mainCanvas"></canvas>
