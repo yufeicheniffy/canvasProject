@@ -28,7 +28,7 @@ if (canvasContext) {
     }
     eraserButton.onclick = function () {
         paintMode = "eraser";
-        mainCanvas.style = "cursor: url(\"../img/eraser-cursor.cur\"),auto;";
+        mainCanvas.style = "cursor: crosshair";
         eraserButton.classList.add("iconActive");
         paintButton.classList.remove("iconActive");
     }
@@ -47,6 +47,16 @@ if (canvasContext) {
         var fileName=prompt("请输入文件名",defaultStatus="MyCanvas");
         downloadLink.download=fileName;
         downloadLink.href=mainCanvas.toDataURL(fileName+".png");
+    }
+
+    thicknessButton.onclick=function(){
+        if(thicknessPicker.classList.contains("Activation")){
+            thicknessPicker.classList.remove("Activation");
+        }else {
+            thicknessPicker.classList.add("Activation");
+        }}
+    thicknessRange.onchange=function(){
+        thickness=thicknessRange.value;
     }
 }
 

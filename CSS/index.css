@@ -59,6 +59,15 @@ button{
     background-color: grey;
     transform: scale(1.1);
 }
+#thicknessPicker{
+ position: absolute;
+    left: 60px;
+    top: 70px;
+    display: none;
+}
+#thicknessPicker.Activation{
+    display: block;
+}
 #colorBar{
     position: absolute;
     left:70px;
