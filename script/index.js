@@ -43,26 +43,27 @@ if (canvasContext) {
     }
     setColorButtonEvent();
 
-    downloadButton.onclick=function () {
-        var fileName=prompt("请输入文件名",defaultStatus="MyCanvas");
-        downloadLink.download=fileName;
-        downloadLink.href=mainCanvas.toDataURL(fileName+".png");
+    downloadButton.onclick = function () {
+        var fileName = prompt("请输入文件名", defaultStatus = "MyCanvas");
+        downloadLink.download = fileName;
+        downloadLink.href = mainCanvas.toDataURL(fileName + ".png");
     }
 
-    thicknessButton.onclick=function(){
-        if(thicknessPicker.classList.contains("Activation")){
+    thicknessButton.onclick = function () {
+        if (thicknessPicker.classList.contains("Activation")) {
             thicknessPicker.classList.remove("Activation");
-        }else {
+        } else {
             thicknessPicker.classList.add("Activation");
-        }}
-    thicknessRange.onchange=function(){
-        thickness=thicknessRange.value;
+        }
+    }
+    thicknessRange.onchange = function () {
+        thickness = thicknessRange.value;
     }
 }
 
 
 //Function Section
-function switchColorBar(){
+function switchColorBar() {
     if (colorBar.classList.contains("unVisibleClass")) {
         colorBar.classList.add("visibleClass");
         colorButton.classList.add("iconActive");
@@ -73,53 +74,56 @@ function switchColorBar(){
         colorBar.classList.add("unVisibleClass");
     }
 }
-function setColorButtonEvent(){
+
+function setColorButtonEvent() {
     blackButton.onclick = function () {
         switchColorBar();
         var newColor = "black";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
     greenButton.onclick = function () {
         switchColorBar();
         var newColor = "green";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
     blueButton.onclick = function () {
         switchColorBar();
         var newColor = "blue";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
     redButton.onclick = function () {
         switchColorBar();
         var newColor = "red";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
     orangeButton.onclick = function () {
         switchColorBar();
         var newColor = "orange";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
     purpleButton.onclick = function () {
         switchColorBar();
         var newColor = "purple";
-        switchColor(color,newColor);
-        color=newColor;
+        switchColor(color, newColor);
+        color = newColor;
     }
 
 }
-function switchColor(oldColor,newColor){
-    var oldColorButton=document.getElementById(oldColor + "Button");
-    var newColorButton=document.getElementById(newColor + "Button");
+
+function switchColor(oldColor, newColor) {
+    var oldColorButton = document.getElementById(oldColor + "Button");
+    var newColorButton = document.getElementById(newColor + "Button");
     oldColorButton.classList.remove("colorButtonActivation");
     oldColorButton.classList.add("colorButton");
     newColorButton.classList.remove("colorButton");
     newColorButton.classList.add("colorButtonActivation");
 }
+
 /*
 设置不同设备的绘画流程监听器
 * para: eventName ["mouseEvent"|"pointerEvent"|"touchEvent"]
@@ -169,18 +173,15 @@ pointer启动后，绘画开始。分为画笔模式和橡皮擦模式。
 function paintStart(x, y) {
     switch (paintMode) {
         case "paint":
-            startPoint = {x: x, y: y};
-            drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
-            onActivation = true;
-            canvas.globalCompositeOperation='source-over';
+            canvasContext.globalCompositeOperation = 'source-over';
             break;
         case "eraser":
-            startPoint = {x: x, y: y};
-            drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
-            onActivation = true;
-            canvas.globalCompositeOperation='destination-out';
+            canvasContext.globalCompositeOperation = 'destination-out';
             break;
     }
+    startPoint = {x: x, y: y};
+    drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
+    onActivation = true;
 }
 
 /*
@@ -192,17 +193,10 @@ pointer移动时的主流程。
  */
 function paintOnActivation(x, y) {
     if (onActivation) {
-        switch (paintMode) {
-            case "paint":
-                drawnDot(x, y, thickness);
-                endPoint = {x: x, y: y};
-                drawnLine(startPoint, endPoint, thickness);
-                startPoint = endPoint;
-                break;
-            case "eraser":
-                clearZone(x, y, thickness * 2);
-                break;
-        }
+        drawnDot(x, y, thickness);
+        endPoint = {x: x, y: y};
+        drawnLine(startPoint, endPoint, thickness);
+        startPoint = endPoint;
     }
 }
 
@@ -225,12 +219,14 @@ function drawnDot(x, y, thickness) {
 * lineWidth: the width of the under-drawing line.
  */
 function drawnLine(startPoint, endPoint, lineWidth) {
+
     canvasContext.beginPath();
     canvasContext.moveTo(startPoint.x, startPoint.y);
     canvasContext.lineTo(endPoint.x, endPoint.y);
     canvasContext.lineWidth = lineWidth * 2;
     canvasContext.strokeStyle = color;
     canvasContext.stroke();
+
 }
 
 /*
@@ -238,13 +234,4 @@ function drawnLine(startPoint, endPoint, lineWidth) {
  */
 function clearAll() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-/*
-清空指定区域.
-* para: x/y: position
-* width: 区域长宽
- */
-function clearZone(x, y, width) {
-    canvasContext.clearRect(x - width / 2, y - width / 2, width, width);
 }
