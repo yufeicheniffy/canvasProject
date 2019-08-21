@@ -162,10 +162,13 @@ function paintStart(x, y) {
             startPoint = {x: x, y: y};
             drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
             onActivation = true;
+            canvas.globalCompositeOperation='source-over';
             break;
         case "eraser":
-            clearZone(x, y, thickness * 2);
+            startPoint = {x: x, y: y};
+            drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
             onActivation = true;
+            canvas.globalCompositeOperation='destination-out';
             break;
     }
 }
