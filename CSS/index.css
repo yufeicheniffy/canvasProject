@@ -16,6 +16,15 @@ button{
     margin: 10px;
     border-radius: 5em;
 }
+.toolBar>ul{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.toolBar img{
+    height: 30px;
+    width: 30px;
+}
 .visibleClass{
     visibility: inherit;
 }

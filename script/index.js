@@ -2,6 +2,7 @@
 var thickness = 5;
 var canvasHeight = document.documentElement.clientHeight;
 var canvasWidth = document.documentElement.clientWidth;
+var historyData=[];
 // Init Canvas
 var canvas = document.getElementById("mainCanvas");
 canvas.setAttribute("height", canvasHeight + "px");
@@ -113,6 +114,12 @@ function setColorButtonEvent() {
         color = newColor;
     }
 
+    undo.onclick = function(){
+        console.log("undoclicked")
+        if(historyData.length < 1) return false;
+        canvasContext.putImageData(historyData.pop(), 0, 0);
+    }
+
 }
 
 function switchColor(oldColor, newColor) {
@@ -133,6 +140,8 @@ function setEventListener(eventName) {
         case "mouseEvent":
             canvas.onmousedown = function (inf) {
                 paintStart(inf.clientX, inf.clientY);
+                this.firstDot = canvasContext.getImageData(0, 0, canvas.width,canvas.height);
+                saveData(this.firstDot);
             }
             canvas.onmousemove = function (inf) {
                 paintOnActivation(inf.clientX, inf.clientY);
@@ -140,6 +149,7 @@ function setEventListener(eventName) {
             canvas.onmouseup = function () {
                 onActivation = false;
             }
+            break;
         case "pointerEvent":
             canvas.onpointerdown = function (inf) {
                 paintStart(inf.clientX, inf.clientY);
@@ -149,7 +159,10 @@ function setEventListener(eventName) {
             }
             canvas.onpointerup = function () {
                 onActivation = false;
+                this.firstDot = canvasContext.getImageData(0, 0, canvasHeight, canvasWidth);
+                saveData(this.firstDot);
             }
+            break;
         case "touchEvent":
             canvas.ontouchstart = function (inf) {
                 paintStart(inf.touches[0].clientX, inf.touches[0].clientY);
@@ -161,8 +174,11 @@ function setEventListener(eventName) {
             }
             canvas.ontouchend = function (inf) {
                 onActivation = false;
+                this.firstDot = canvasContext.getImageData(0, 0, canvasHeight, canvasWidth);
+                saveData(this.firstDot);
                 inf.preventDefault();
             }
+            break;
     }
 }
 
@@ -180,7 +196,6 @@ function paintStart(x, y) {
             break;
     }
     startPoint = {x: x, y: y};
-    drawnDot(x, y, thickness);//在连接处等地方画点会增加柔顺度，更SMOOTH
     onActivation = true;
 }
 
@@ -234,4 +249,11 @@ function drawnLine(startPoint, endPoint, lineWidth) {
  */
 function clearAll() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+}
+/*
+保存绘图历史
+ */
+function saveData (data) {
+    (historyData.length === 10) && (historyData.shift()); // 上限为储存10步，太多了怕挂掉
+    historyData.push(data);
 }
